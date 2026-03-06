@@ -39,10 +39,9 @@ export default function SetupWizard() {
   const getAvailableCapabilities = () => {
     if (!selectedIndustry) return [];
 
-    const industry = INDUSTRIES.find((ind) => ind.id === selectedIndustry);
-    if (!industry) return [];
-
-    return industry.recommendedBlocks.map((blockId) => CAPABILITY_BLOCKS[blockId]).filter(Boolean);
+    return Object.values(CAPABILITY_BLOCKS).filter(
+      (block) => block.industries.includes('all') || block.industries.includes(selectedIndustry)
+    );
   };
 
   // Get all capabilities not in active list
